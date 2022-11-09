@@ -3,27 +3,28 @@
         <div class="register-form-container">
             <form id="registerForm" @submit="handleSubmit" novalidate autocomplete="off">
                 <h3>Create your account</h3>
+
                 <div class="form-group">
-                    <label for="uName">Enter your name:
+                    <label for="uPhone">Enter your phone number:
                     </label>
-                    <input type="text" name="uName" placeholder="your full name" id="uName" class="form-control"
-                        v-model="registerObj.name" />
-                    <p class="error-mess" v-if="errorObj.nameErr.length > 0">{{ errorObj.nameErr[0] }}</p>
+                    <input type="tel" name="uPhone" placeholder="Enter phone number" id="uPhone"
+                        class="form-control" v-model="registerObj.user_phone" />
+                    <p class="error-mess" v-if="errorObj.phoneErr.length > 0">{{ errorObj.phoneErr[0] }}</p>
                 </div>
 
                 <div class="form-group">
-                    <label for="uEmail">Enter your email:
+                    <label for="uName">Enter house name:
                     </label>
-                    <input type="email" name="uEmail" placeholder="example@gmail.com" id="uEmail" class="form-control"
-                        v-model="registerObj.email" />
-                    <p class="error-mess" v-if="errorObj.emailErr.length > 0">{{ errorObj.emailErr[0] }}</p>
+                    <input type="text" name="uName" placeholder="House name" id="uName" class="form-control"
+                        v-model="registerObj.user_home" />
+                    <p class="error-mess" v-if="errorObj.nameErr.length > 0">{{ errorObj.nameErr[0] }}</p>
                 </div>
 
                 <div class="form-group">
                     <label for="uPass">Enter your password:
                     </label>
                     <input type="password" name="uPass" placeholder="enter your password" id="uPass"
-                        class="form-control" v-model="registerObj.pass" />
+                        class="form-control" v-model="registerObj.user_password" />
                     <p class="error-mess" v-if="errorObj.passErr.length > 0">{{ errorObj.passErr[0] }}</p>
                 </div>
 
@@ -36,31 +37,17 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="uPhone">Enter your phone number:
+                    <label for="uEmail">Enter your email:
                     </label>
-                    <input type="tel" name="uPhone" placeholder="enter your phone number" id="uPhone"
-                        class="form-control" v-model="registerObj.phone" />
-                    <p class="error-mess" v-if="errorObj.phoneErr.length > 0">{{ errorObj.phoneErr[0] }}</p>
+                    <input type="email" name="uEmail" placeholder="example@gmail.com" id="uEmail" class="form-control"
+                        v-model="registerObj.user_email" />
+                    <p class="error-mess" v-if="errorObj.emailErr.length > 0">{{ errorObj.emailErr[0] }}</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="uBirth">Enter your birthday:
-                    </label>
-                    <input type="date" name="uBirth" id="uBirth" class="form-control" @click="availableTime()"
-                        v-model="registerObj.birth" />
-                    <p class="error-mess" v-if="errorObj.birthErr.length > 0">{{ errorObj.birthErr[0] }}</p>
-                </div>
-
-                <div class="form-group">
-                    <label for="">Select your gender:
-                    </label>
-                    <div class="form-group">
-                        <input type="radio" name="gender" value="male" id="genderMale"
-                            v-model="registerObj.gender" /><span>Male</span>
-                        <input type="radio" name="gender" value="female" id="genderFemale"
-                            v-model="registerObj.gender" /><span>Female</span>
-                    </div>
-                    <p class="error-mess" v-if="errorObj.genderErr.length > 0">{{ errorObj.genderErr[0] }}</p>
+                <div class="form-group" v-if="!!serverError">
+                    <span style="color: red">
+                        {{serverError}}
+                    </span>
                 </div>
 
                 <div class="form-group">
@@ -75,15 +62,26 @@
 
 <script>
 import axios from 'axios';
+import authMixin from '@/mixins/authMixin';
 export default {
     name: "Register",
+    mixins: [authMixin],
 
     data() {
         return {
-            registerObj: { name: "", email: "", pass: "", confirm: "", phone: "", birth: "", gender: "" },
-            errorObj: { nameErr: [], emailErr: [], passErr: [], confirmErr: [], phoneErr: [], birthErr: [], genderErr: [] },
+            registerObj: { user_phone: '', user_home: '', user_password: '', confirm: '', user_email: '' },
+            errorObj: { nameErr: [], emailErr: [], passErr: [], confirmErr: [], phoneErr: [], },
             matchUser: undefined,
 
+        }
+    },
+    watch: {
+        registerObj: {
+            handler() {
+                this.serverError = null
+            },
+            deep: true,
+            immediate: true
         }
     },
 
@@ -114,8 +112,6 @@ export default {
             this.errorObj.passErr = [];
             this.errorObj.confirmErr = [];
             this.errorObj.phoneErr = [];
-            this.errorObj.birthErr = [];
-            this.errorObj.genderErr = [];
         },
 
         checkEmptyErr: function () {
@@ -131,36 +127,36 @@ export default {
             this.resetCheckErr();
 
             // Name validate
-            if (!this.registerObj.name) {
-                this.errorObj.nameErr.push("Entering a name is required");
+            if (!this.registerObj.user_home) {
+                this.errorObj.nameErr.push("Entering home name is required");
             }
             else {
-                if (!/^[A-Za-z]+$/.test(this.registerObj.name.replace(/\s/g, ""))) {
-                    this.errorObj.nameErr.push('A name can only contain letters');
+                if (!/^[A-Za-z]+$/.test(this.registerObj.user_home.replace(/\s/g, ""))) {
+                    this.errorObj.nameErr.push('Home name can only contain letters');
                 }
             }
 
             // Email validate
-            if (!this.registerObj.email) {
-                this.errorObj.emailErr.push("Entering a email is required");
-            }
-            else {
-                if (!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(this.registerObj.email)) {
-                    this.errorObj.emailErr.push('Email must be valid');
-                }
-            }
+            // if (!this.registerObj.user_email) {
+            //     this.errorObj.emailErr.push("Entering a email is required");
+            // }
+            // else {
+            //     if (!/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/.test(this.registerObj.email)) {
+            //         this.errorObj.emailErr.push('Email must be valid');
+            //     }
+            // }
 
             // Pass validate
-            if (!this.registerObj.pass) {
+            if (!this.registerObj.user_password) {
                 this.errorObj.passErr.push('Password is required');
             }
             else {
-                if (!/[!@#$%^&*]/.test(this.registerObj.pass)) {
+                if (!/[!@#$%^&*]/.test(this.registerObj.user_password)) {
                     this.errorObj.passErr.push('Password must contain at least 1 special character');
                 }
 
-                if (this.registerObj.pass.length < 8) {
-                    this.errorObj.passErr.push('Password must be more than or equal 8 characters');
+                if (this.registerObj.user_password.length < 6) {
+                    this.errorObj.passErr.push('Password must be more than or equal 6 characters');
                 }
             }
 
@@ -169,76 +165,44 @@ export default {
                 this.errorObj.confirmErr.push('Confirm password is required');
             }
             else {
-                if (this.registerObj.pass !== this.registerObj.confirm) {
+                if (this.registerObj.user_password !== this.registerObj.confirm) {
                     this.errorObj.confirmErr.push('Confirm password must be match with password');
                 }
             }
 
 
             // Phone validate
-            if (!this.registerObj.phone) {
+            if (!this.registerObj.user_phone) {
                 this.errorObj.phoneErr.push('Entering phone number is required');
             }
             else {
 
-                if (this.registerObj.phone.length != 10) {
+                if (this.registerObj.user_phone.length != 10) {
                     this.errorObj.phoneErr.push('Phone numbers must have exactly 10 digits');
                 }
 
-                if (!/[0-9]{10}/.test(this.registerObj.phone)) {
+                if (!/[0-9]{10}/.test(this.registerObj.user_phone)) {
                     this.errorObj.phoneErr.push('Phone numbers can only contain numbers');
                 }
-            }
-
-            // Birth validate
-            if (!this.registerObj.birth) {
-                this.errorObj.birthErr.push("Entering birthday is required");
-            }
-            else {
-                let minRange = document.getElementById("uBirth").getAttribute("min");
-                let maxRange = document.getElementById("uBirth").getAttribute("max");
-                let dateMin = new Date(minRange);
-                let dateMax = new Date(maxRange);
-                let dateInput = new Date(this.registerObj.birth);
-
-                if (dateInput === "Invalid Date") {
-                    this.errorObj.birthErr.push("Invalid date input");
-                }
-
-                if (dateInput.getTime() < dateMin.getTime() || dateInput.getTime() > dateMax.getTime()) {
-                    this.errorObj.birthErr.push("Available birthday range is from pass 150 years to now");
-                }
-            }
-
-            // Gender validate
-            if (!this.registerObj.gender) {
-                this.errorObj.genderErr.push("Please select a gender");
             }
         },
 
         async handleSubmit(e) {
-            this.checkForm();
+            await this.checkForm();
 
             if (!this.checkEmptyErr()) {
                 e.preventDefault();
             } else {
                 e.preventDefault();
-                await this.getMatchUser(this.registerObj.email);
-                if (this.matchUser) {
-                    this.errorObj.emailErr.push("Account already exist")
-                }
-                else {
-                    let data = {
-                        user_name: this.registerObj.name,
-                        user_email: this.registerObj.email,
-                        user_phone: this.registerObj.phone,
-                        user_password: this.registerObj.pass,
-                        user_birth: this.registerObj.birth,
-                        user_gender: this.registerObj.gender
-                    }
+                try {
+                    let data = JSON.parse(JSON.stringify(this.registerObj))
+                    delete data.confirm
                     await axios.post("/users/", data);
                     this.$router.push("/login");
+                } catch (error) {
+                    this.showError(error)
                 }
+                    
             }
         }
     },

@@ -95,7 +95,9 @@ export default {
         e.preventDefault();
         try {
             const response = await axios.post("/users/login", {user_phone: this.loginObj.email, password: this.loginObj.pass});
-            this.setUser(response);
+            console.log('response', response.data)
+            this.setUser(response.data);
+            localStorage.setItem("token", response.data.token)
             this.$router.push('/')
         } catch (error) {
             console.log(error)

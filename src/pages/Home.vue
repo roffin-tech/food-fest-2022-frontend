@@ -4,7 +4,7 @@
             <div class="content">
                 <span><b>Hillstaurant</b></span>
                 <h3>Taste from God's Own Country</h3>
-                <p>Offers its royal delicacies including traditional, indian, chnese, thai, spanish, 
+                <p>Offers its royal delicacies including traditional, indian, chinese, thai, spanish, 
                     and continental dishes born from the fingers tips of mastered chefs as well highly 
                     competent seasoned cooks at its splended restaurant.</p>
             </div>
@@ -119,7 +119,7 @@
 <script>
 export default {
     name: "Home",
-
+    
     methods: {
         scrollToTop() {
             window.scrollTo(0, 0);
