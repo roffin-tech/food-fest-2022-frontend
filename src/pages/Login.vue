@@ -4,9 +4,12 @@
       <form id="loginForm" @submit="handleSubmit" novalidate autocomplete="off">
         <h3>LOGIN</h3>
 
-        <div v-if="errors.length" class="error-box">
+        <div v-if="errors.length || !!serverError" class="error-box">
           <ul>
-            <li v-for="error in errors" :key="error">{{ error }}</li>
+            <li v-if="!!serverError">
+              {{ serverError }}
+            </li>
+            <li v-for="error in errors" :key="error" v-else>{{ error }}</li>
           </ul>
         </div>
 
@@ -16,7 +19,7 @@
             id="uEmail"
             name="uEmail"
             class="form-control"
-            placeholder="enter your email"
+            placeholder="Enter your mobile number"
             v-model="loginObj.email"
           />
         </div>
@@ -27,7 +30,7 @@
             id="uPass"
             name="uPass"
             class="form-control"
-            placeholder="enter your password"
+            placeholder="Enter your password"
             v-model="loginObj.pass"
           />
         </div>
@@ -37,7 +40,7 @@
           <p>
             Don't have an account?
             <router-link @click="scrollToTop()" to="/register">
-                Please contact 9567509143
+              Please contact 9567509143
             </router-link>
           </p>
         </div>
@@ -48,10 +51,21 @@
 
 <script>
 import axios from "axios";
+import authMixin from "@/mixins/authMixin";
 import { mapMutations } from "vuex";
 export default {
   name: "Login",
+  mixins: [authMixin],
 
+  watch: {
+    loginObj: {
+            handler() {
+                this.serverError = null
+            },
+            deep: true,
+            immediate: true
+        }
+    },
   data() {
     return {
       loginObj: { email: "", pass: "" },
@@ -78,9 +92,7 @@ export default {
       if (!this.loginObj.email) {
         this.errors.push("Entering a email is required");
       } else {
-        if (
-          !/[0-9]{10}$/.test(this.loginObj.email)
-        ) {
+        if (!/[0-9]{10}$/.test(this.loginObj.email)) {
           this.errors.push("Phone number must be valid");
         }
       }
@@ -94,15 +106,18 @@ export default {
       } else {
         e.preventDefault();
         try {
-            const response = await axios.post("/users/login", {user_phone: this.loginObj.email, password: this.loginObj.pass});
-            console.log('response', response.data)
-            this.setUser(response.data);
-            localStorage.setItem("token", response.data.token)
-            this.$router.push('/')
+          const response = await axios.post("/users/login", {
+            user_phone: this.loginObj.email,
+            password: this.loginObj.pass,
+          });
+          console.log("response", response.data);
+          this.setUser(response.data);
+          localStorage.setItem("token", response.data.token);
+          this.$router.push("/create-order");
         } catch (error) {
-            console.log(error)
+          console.log(error)
+          this.showError(error);
         }
-        
       }
     },
   },

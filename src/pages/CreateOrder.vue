@@ -1,3 +1,5 @@
+<!-- eslint-disable vue/valid-v-for -->
+<!-- eslint-disable vue/no-parsing-error -->
 <template>
   <div class="admin-container">
     <form
@@ -16,46 +18,130 @@
           <li v-for="error in errors" :key="error">{{ error }}</li>
         </ul>
       </div>
+      <div class="row mt-2"></div>
       <div class="row mt-2">
-        <button @click.prevent="addProduct">Add Another Product</button>
-      </div>
-      <template v-for="(product, index) in order_items" :key="index">
-        <div>
-            <div class="row mt-2">
-        <div class="col-4"><span>Table type:</span></div>
+        <div class="col-4"></div>
         <div class="col-8">
-          <v-select
-            v-model="hotel.tableType"
-            :clearable="false"
-            :options="tableTypes"
-          />
+          <button @click.prevent="addProduct" class="btn add-another-product">
+            Add Another Product
+          </button>
         </div>
       </div>
+      <template v-if="order && order.order_items">
+        <div v-for="(data, index) in order.order_items" :key="index">
+          <template
+            v-for="(product, index1) in products"
+            :key="index * 1000 + index1"
+          >
+            <div class="row mt-2">
+              <div class="col-4">
+                <span>Product {{ index1 + 1 }}:</span>
+              </div>
+              <div class="col-8">
+                <!-- <v-select
+                v-model="data.product_id"
+                value="id"
+                label="product_name"
+                :clearable="false"
+                :options="products"
+              /> -->
+                <select
+                  name="product"
+                  id="product"
+                  style="
+                    width: 100%;
+                    height: calc(1.5em + 0.75rem + 2px);
+                    border: revert;
+                    border-radius: 5px;
+                    border-color: #f7f7f7;
+                    background-color: #f7f7f7;
+                  "
+                  v-model="data.product_id"
+                  @change="
+                    data.price = product.price;
+                    data.unit = product.available_measure;
+                  "
+                >
+                  <option :value="product.id">
+                    {{ product.product_name }}
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="row mt-2 form-group">
+              <div class="col-4"><span>Price:</span></div>
+              <div class="col-8">
+                <input
+                  readonly
+                  type="number"
+                  class="form-control"
+                  v-model="data.price"
+                />
+              </div>
+            </div>
+            <div class="row mt-2 form-group">
+              <div class="col-4"><span>Unit:</span></div>
+              <div class="col-8">
+                <input
+                  readonly
+                  type="text"
+                  class="form-control"
+                  v-model="data.unit"
+                />
+              </div>
+            </div>
+          </template>
+          <div class="row mt-2 form-group">
+            <div class="col-4"><span>Quantity Needed:</span></div>
+            <div class="col-8">
+              <input
+                type="number"
+                class="form-control"
+                v-model="data.quantity"
+              />
+            </div>
+          </div>
         </div>
       </template>
       <div class="row mt-2">
-        <div class="col-4"><span>Table type:</span></div>
+        <div class="col-4">
+          <span style="font-weight: 900">Added For: </span>(Mobile)
+        </div>
         <div class="col-8">
-          <v-select
-            v-model="hotel.tableType"
-            :clearable="false"
-            :options="tableTypes"
+          <input
+            type="tel"
+            class="form-control"
+            v-model="order.added_for_mobile"
           />
         </div>
       </div>
 
       <div class="row mt-2">
-        <div class="col-4"><span>Table name:</span></div>
+        <div class="col-4">
+          <span>Name: </span>
+        </div>
         <div class="col-8">
-          <v-select
-            v-model="hotel.tableName"
-            :clearable="false"
-            :options="tableNames"
+          <input
+            type="tel"
+            class="form-control"
+            v-model="order.added_for_name"
           />
         </div>
       </div>
 
-      <div class="row mt-2 form-group">
+      <div class="row mt-2">
+        <div class="col-4">
+          <span>House Name: </span>
+        </div>
+        <div class="col-8">
+          <input
+            type="tel"
+            class="form-control"
+            v-model="order.added_for_house_name"
+          />
+        </div>
+      </div>
+      <!-- <div class="row mt-2 form-group">
         <div class="col-4"><span>Count:</span></div>
         <div class="col-8">
           <input type="number" class="form-control" v-model="hotel.count" />
@@ -67,7 +153,7 @@
         <div class="col-8">
           <input type="text" class="form-control" v-model="hotel.description" />
         </div>
-      </div>
+      </div> -->
 
       <!-- <div class="row mt-2 form-group">
           <div class="col-4"><span>Image:</span></div>
@@ -95,12 +181,12 @@
 </template>
 <script>
 import axios from "axios";
-import vSelect from "vue-select";
+// import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 export default {
   name: "TableAddOrEdit",
   components: {
-    "v-select": vSelect,
+    // "v-select": vSelect,
   },
   data() {
     return {
@@ -127,6 +213,7 @@ export default {
         ],
       },
       errors: [],
+      products: [],
     };
   },
   computed: {
@@ -135,43 +222,50 @@ export default {
     },
   },
   mounted() {
-    if (this.hotel && this.hotel.tableType)
-      this.hotel.tableType = this.tableTypes[0];
+    this.fetchProducts();
   },
   methods: {
     addProduct() {
-        this.order.order_items.push(this.product)
+      this.order.order_items.push(this.product);
+    },
+    async fetchProducts() {
+      try {
+        const response = await axios.get("/products");
+        this.products = response.data;
+        this.$forceUpdate();
+      } catch (error) {
+        console.log(error);
+      }
     },
     async handleSubmit() {
       this.errors = [];
-      console.log("on hotel submit", this.hotel);
-      const payload = {
-        table_type: this.hotel.tableType.value || "",
-        table_name: this.hotel.tableName.value || "",
-        count: this.hotel.count,
-        table_description: this.hotel.description,
-        table_image: this.hotel.image,
-      };
+      let totalAmount = 0;
+      this.order.order_items.forEach((item) => {
+        totalAmount += item.price * item.quantity;
+      });
+      this.order.total_amount = totalAmount;
+      console.log("on hotel submit", this.order);
+
       try {
-        const response = await axios.post("book-tables", payload);
+        const response = await axios.post("orders", this.order);
         console.log("error", response);
       } catch (error) {
         console.log("error", error.data);
       }
     },
-    async uploadImage(e) {
-      if (e && e.target && e.target.files && e.target.files[0]) {
-        console.log("response", e);
-        const formData = new FormData();
-        formData.append("image", e.target.files[0]);
-        const response = await axios.post("/upload", formData);
-        console.log(response);
-        if (response && response.data && response.data.imageUrl) {
-          this.hotel.image = response.data.imageUrl;
-        }
-        console.log("response", response);
-      }
-    },
+    // async uploadImage(e) {
+    //   if (e && e.target && e.target.files && e.target.files[0]) {
+    //     console.log("response", e);
+    //     const formData = new FormData();
+    //     formData.append("image", e.target.files[0]);
+    //     const response = await axios.post("/upload", formData);
+    //     console.log(response);
+    //     if (response && response.data && response.data.imageUrl) {
+    //       this.hotel.image = response.data.imageUrl;
+    //     }
+    //     console.log("response", response);
+    //   }
+    // },
   },
 };
 </script>
@@ -205,5 +299,10 @@ export default {
   text-transform: none;
   width: 100%;
   border: none;
+}
+
+.add-another-product {
+  font-size: 1.2rem !important;
+  float: right;
 }
 </style>
