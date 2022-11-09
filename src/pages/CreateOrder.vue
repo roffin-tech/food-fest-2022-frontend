@@ -35,7 +35,7 @@
           >
             <div class="row mt-2">
               <div class="col-4">
-                <span>Product {{ index1 + 1 }}:</span>
+                <span>Product {{ index + 1 }}:</span>
               </div>
               <div class="col-8">
                 <!-- <v-select
