@@ -3,6 +3,7 @@ import Login from '../pages/Login.vue';
 import Register from '../pages/Register.vue';
 import Home from '../pages/Home.vue';
 import CreateOrder from '../pages/CreateOrder.vue';
+import ProductsList from '../pages/ProductList.vue';
 import About from '../pages/About.vue';
 import Table from '../pages/Table.vue';
 import Admin from '../admin/Admin.vue';
@@ -42,6 +43,11 @@ const routes = [
     path: "/create-order",
     name: "CreateOrder",
     component: CreateOrder,
+  },
+  {
+    path: "/products",
+    name: "Products",
+    component: ProductsList,
   },
   {
     path: "/admin",
