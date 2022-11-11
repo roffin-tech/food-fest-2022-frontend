@@ -2,7 +2,7 @@
     <div>
         <div class="home-main">
             <div class="content">
-                <span><b>Hillstaurant</b></span>
+                <span><b>LF Food Fest</b></span>
                 <h3>Taste from God's Own Country</h3>
                 <p>Offers its royal delicacies including traditional, indian, chinese, thai, spanish, 
                     and continental dishes born from the fingers tips of mastered chefs as well highly 
@@ -87,7 +87,7 @@
             <div class="content">
                 <span>why choose us?</span>
                 <h3 class="title">Reservations</h3>
-                <p>Hillstaurant help customers to access menu items and avoid large 
+                <p>LF Food Fest help customers to access menu items and avoid large 
                     queues by prior table booking and delivering the required food items. 
                     Restaurant reservation system is a solution that help customers to make 
                     table reservation easier and manage table booking efficiently.</p>
