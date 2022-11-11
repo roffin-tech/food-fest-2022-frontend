@@ -181,10 +181,12 @@
 </template>
 <script>
 import axios from "axios";
+import { useToast } from "vue-toastification";
 // import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
 export default {
   name: "TableAddOrEdit",
+
   components: {
     // "v-select": vSelect,
   },
@@ -248,6 +250,23 @@ export default {
 
       try {
         const response = await axios.post("orders", this.order);
+        const toast = useToast();
+
+        // or with options
+        toast.success("Order Booked Successfully!", {
+          timeout: 2000,
+        });
+        setTimeout(() => {
+          this.order = {
+            order_items: [
+              {
+                product_id: "",
+                quantity: "",
+              },
+            ],
+          };
+        }, 2000);
+
         console.log("error", response);
       } catch (error) {
         console.log("error", error.data);
