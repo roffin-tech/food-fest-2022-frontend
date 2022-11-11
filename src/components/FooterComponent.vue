@@ -27,8 +27,8 @@
                 <router-link @click="scrollToTop()" to="/"> <i class="fas fa-arrow-right"></i> home</router-link>
                 <router-link @click="scrollToTop()" to="/about"> <i class="fas fa-arrow-right"></i> about</router-link>
 
-                <router-link @click="scrollToTop()" to="/table"> <i class="fas fa-arrow-right"></i> book a table
-                </router-link>
+                <!-- <router-link @click="scrollToTop()" to="/table"> <i class="fas fa-arrow-right"></i> book a table
+                </router-link> -->
             </div>
 
             <div class="box">
@@ -41,14 +41,14 @@
                 <div v-else>
                     <router-link @click="scrollToTop()" to="/login"> <i class="fas fa-arrow-right"></i> login
                     </router-link>
-                    <router-link @click="scrollToTop()" to="/register"> <i class="fas fa-arrow-right"></i> register
-                    </router-link>
+                    <!-- <router-link @click="scrollToTop()" to="/register"> <i class="fas fa-arrow-right"></i> register
+                    </router-link> -->
                 </div>
             </div>
 
             <div class="box">
                 <h3>opening hours</h3>
-                <p>everyday : 8:00am to 9:00pm</p>
+                <p>21/11/2022 Monday : 4:00pm to 9:00pm</p>
 
             </div>
 
