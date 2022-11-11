@@ -113,7 +113,7 @@ export default {
           console.log("response", response.data);
           this.setUser(response.data);
           localStorage.setItem("token", response.data.token);
-          this.$router.push("/create-order");
+          this.$router.push("/orders");
         } catch (error) {
           console.log(error)
           this.showError(error);
