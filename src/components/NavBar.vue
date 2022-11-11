@@ -6,7 +6,7 @@
         <nav class="navbar" v-if="!isAdmin">
             <router-link @click="scrollToTop()" to="/">home</router-link>
             <router-link @click="scrollToTop()" to="/about">about</router-link>
-            <router-link @click="scrollToTop()" to="/table">table</router-link>
+            <!-- <router-link @click="scrollToTop()" to="/table">table</router-link> -->
         </nav>
 
         <div class="icons" v-if="!isAdmin">
@@ -20,9 +20,9 @@
                     <li>
                         <router-link @click="scrollToTop()" to="/login">login</router-link>
                     </li>
-                    <li>
+                    <!-- <li>
                         <router-link @click="scrollToTop()" to="/register">register</router-link>
-                    </li>
+                    </li> -->
                 </ul>
 
             </div>

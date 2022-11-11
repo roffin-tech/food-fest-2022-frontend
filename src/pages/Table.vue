@@ -22,7 +22,7 @@
             <div class="icons">
                 <img src="../assets/images/icon-3.png" alt="">
                 <h3>Koovappally, Kanjirappally, Kottayam</h3>
-                <p>support@hillstaurant.com</p>
+                <p>support@lf.com</p>
             </div>
 
         </div>

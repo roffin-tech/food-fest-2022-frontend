@@ -47,7 +47,7 @@
             </router-link>
         </div>
 
-        <div class="home-banner">
+        <!-- <div class="home-banner">
             <div class="grid-banner row">
                 <div class="grid col-md-4">
                     <img src="../assets/images/h.jpg" alt="">
@@ -78,7 +78,7 @@
 
             </div>
 
-        </div>
+        </div> -->
 
         <div class="home-about">
             <div class="image">
@@ -88,10 +88,9 @@
                 <span>why choose us?</span>
                 <h3 class="title">Reservations</h3>
                 <p>LF Food Fest help customers to access menu items and avoid large 
-                    queues by prior table booking and delivering the required food items. 
-                    Restaurant reservation system is a solution that help customers to make 
-                    table reservation easier and manage table booking efficiently.</p>
-                <router-link @click="scrollToTop()" to="/about" class="btn">read more</router-link>
+                    queues by prior booking and delivering the required food items. 
+                    </p>
+                <!-- <router-link @click="scrollToTop()" to="/about" class="btn">read more</router-link> -->
 
                 <div class="icons-container">
                     <div class="icons">
