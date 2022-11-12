@@ -39,8 +39,8 @@
           <input type="submit" value="login now" class="btn" />
           <p>
             Don't have an account?
-            <router-link @click="scrollToTop()" to="/register">
-              Please contact 9567509143
+            <router-link @click="scrollToTop()" to="">
+              Please contact 9497602662
             </router-link>
           </p>
         </div>

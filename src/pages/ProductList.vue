@@ -66,7 +66,7 @@
           </div>
           <div class="col-8">
             <input
-              type="tel"
+              type="text"
               class="form-control"
               v-model="orderUserInfo.added_for_name"
             />
@@ -79,7 +79,7 @@
           </div>
           <div class="col-8">
             <input
-              type="tel"
+              type="text"
               class="form-control"
               v-model="orderUserInfo.added_for_house_name"
             />
