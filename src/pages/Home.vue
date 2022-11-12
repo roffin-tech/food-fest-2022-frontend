@@ -9,7 +9,7 @@
                     competent seasoned cooks at its splended restaurant.</p>
             </div>
             <div class="image">
-                <img src="../assets/images/b.png" alt="" class="home-img">
+                <img src="../assets/images/home-banner.jpg" alt="" class="home-img">
                 <img src="../assets/images/a.png" alt="" class="home-parallax-img">
             </div>
         </div>
