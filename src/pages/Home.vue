@@ -2,7 +2,7 @@
     <div>
         <div class="home-main">
             <div class="content">
-                <span><b>LF Food Fest</b></span>
+                <span><b>Virunnu 2022</b></span>
                 <h3>Taste from God's Own Country</h3>
                 <p>Offers its royal delicacies including traditional, indian, chinese, thai, spanish, 
                     and continental dishes born from the fingers tips of mastered chefs as well highly 
@@ -15,7 +15,7 @@
         </div>
 
 
-        <div class="home-category">
+        <!-- <div class="home-category">
             <router-link @click="scrollToTop()" to="/menu" class="box">
                 <img src="../assets/images/taco-img.png" alt="">
                 <h3>Falafel Roll</h3>
@@ -45,7 +45,7 @@
                 <img src="../assets/images/coca-img.png" alt="">
                 <h3>drink</h3>
             </router-link>
-        </div>
+        </div> -->
 
         <!-- <div class="home-banner">
             <div class="grid-banner row">
@@ -87,7 +87,7 @@
             <div class="content">
                 <span>why choose us?</span>
                 <h3 class="title">Reservations</h3>
-                <p>LF Food Fest help customers to access menu items and avoid large 
+                <p>Virunnu 2022 help customers to access menu items and avoid large 
                     queues by prior booking and delivering the required food items. 
                     </p>
                 <!-- <router-link @click="scrollToTop()" to="/about" class="btn">read more</router-link> -->

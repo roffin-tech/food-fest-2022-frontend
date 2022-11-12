@@ -12,7 +12,7 @@
         <div class="box-container">
 
             <div class="box">
-                <h3>our menu</h3>
+                <h3>our specials</h3>
                 <router-link @click="scrollToTop()" to="/menu"><i class="fas fa-arrow-right"></i> Biriyani's</router-link>
                 <router-link @click="scrollToTop()" to="/menu"><i class="fas fa-arrow-right"></i> Dosa's</router-link>
                 <router-link @click="scrollToTop()" to="/menu"><i class="fas fa-arrow-right"></i> Kappayum mean curryum</router-link>
@@ -61,6 +61,9 @@
                 <a href="#" class="fab fa-twitter"></a>
                 <a href="#" class="fab fa-instagram"></a>
                 <a href="#" class="fab fa-pinterest"></a>
+            </div>
+            <div>
+                <span>Powered by LFC Kulathur</span>
             </div>
 
         </div>

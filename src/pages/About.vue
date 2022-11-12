@@ -9,12 +9,12 @@
             <div class="about-content">
                 <img src="../assets/images/taco-chefcartoon.png" alt="">
                 <div class="about-content-text">
-                    <p><strong>LF Food Fest!</strong> Being a mainly authentic south Indian restaurant,
+                    <p><strong>Virunnu 2022!</strong> Being a mainly authentic south Indian restaurant,
                          there are special dishes that are characterized as spicy/less 
                          spicy cooking with variety of spices and herbs from the tropical 
                          mountains of Kerala matched with our experienced chefs cooking
                           techniques. South Indian cooking choices differs with tradition
-                           community and religion. LF Food Fest offers its patrons a warm
+                           community and religion. Virunnu 2022 offers its patrons a warm
                             contemporary Indian ambience combined with soothing classical 
                             music and a friendly service.</p>
                     <p>Customers can eat at the restaurant to experience the Keralite atmosphere or can order food to be

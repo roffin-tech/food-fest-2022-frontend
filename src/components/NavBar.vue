@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <router-link @click="scrollToTop()" :to="isAdmin? '': '/'" class="logo"><img src="../assets/images/log.jpg" alt="" />LF Food Fest
+        <router-link @click="scrollToTop()" :to="isAdmin? '': '/'" class="logo"><img src="../assets/images/log.jpg" alt="" />Virunnu 2022
         </router-link>
 
         <nav class="navbar" v-if="!isAdmin">
