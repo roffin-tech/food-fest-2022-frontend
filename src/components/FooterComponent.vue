@@ -1,21 +1,21 @@
 <template>
     <div class="footer">
-        <div class="news-letter">
+        <!-- <div class="news-letter">
             <h3>Receive event notifications</h3>
             <form onsubmit="event.preventDefault();">
                 <input type="email" name="useremailreceiveinfo" placeholder="enter your email"
                     id="useremailreceiveinfo">
                 <input type="submit" value="subscribe">
             </form>
-        </div>
+        </div> -->
 
         <div class="box-container">
 
             <div class="box">
                 <h3>our menu</h3>
-                <router-link @click="scrollToTop()" to="/menu"><i class="fas fa-arrow-right"></i> Falafel Roll</router-link>
-                <router-link @click="scrollToTop()" to="/menu"><i class="fas fa-arrow-right"></i> Chicken Tikka</router-link>
-                <router-link @click="scrollToTop()" to="/menu"><i class="fas fa-arrow-right"></i> Al-Meshwi</router-link>
+                <router-link @click="scrollToTop()" to="/menu"><i class="fas fa-arrow-right"></i> Biriyani's</router-link>
+                <router-link @click="scrollToTop()" to="/menu"><i class="fas fa-arrow-right"></i> Dosa's</router-link>
+                <router-link @click="scrollToTop()" to="/menu"><i class="fas fa-arrow-right"></i> Kappayum mean curryum</router-link>
                 <router-link @click="scrollToTop()" to="/menu"><i class="fas fa-arrow-right"></i> side food
                 </router-link>
                 <router-link @click="scrollToTop()" to="/menu"><i class="fas fa-arrow-right"></i> dessert</router-link>
@@ -35,8 +35,8 @@
                 <h3>extra links</h3>
                 <div v-if="user">
                   
-                    <router-link @click="scrollToTop()" to="/myorder"> <i class="fas fa-arrow-right"></i> my orders
-                    </router-link>
+                    <!-- <router-link @click="scrollToTop()" to="/myorder"> <i class="fas fa-arrow-right"></i> my orders
+                    </router-link> -->
                 </div>
                 <div v-else>
                     <router-link @click="scrollToTop()" to="/login"> <i class="fas fa-arrow-right"></i> login
